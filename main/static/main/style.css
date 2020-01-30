@@ -1,0 +1,8 @@
+header h1 {
+    background: url("scroll.png") left / auto 100% no-repeat,
+    url("scroll.png") right / auto 100% no-repeat;
+}
+
+.root {
+    font-size: larger; 
+}
