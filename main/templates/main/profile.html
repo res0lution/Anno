@@ -1,13 +1,69 @@
 {% extends 'layout/basic.html' %}
 
+{% load thumbnail %}
+{% load static %}
+{% load bootstrap4 %}
+
 {% block title %}Профиль пользователя{% endblock title %}
 
 {% block content %}
-  <h2>Профиль {{user.username}}</h2>
-  {% if user.first_name and user.lastname %}
-    <p>Добро пожаловать {{user.first_name}}{{user.last_name}}</p>
+  <h2 class="text-center mt-5">Профиль {{user.username}}</h2>
+
+  {% if user.first_name and user.last_name %}
+    <p>Добро пожаловать {{user.first_name}} {{user.last_name}}</p>
   {% else %}
     <p>Добро пожаловать</p>
   {% endif %}
-  <h3>Список ваших обьявлений</h3>
+
+  <h3>Ваши объявления</h3>
+
+  {% if anno %}
+    <ul class="list-unstyled">
+
+      {% for item in anno %}
+        <li class="media my-2 р-3 border rounded">
+
+          {% url 'main:profile_anno_detail' pk=item.pk as url %}
+            <a class="align-self-center" href="{{url}}{{all}}">
+            {% if item.image %}
+              <img class="mr-3 ml-3 rounded" src="{% thumbnail item.image 'default' %}">
+            {% else %}
+              <img class="mr-3 ml-3 rounded" src="{% static 'main/empty.jpg' %}">
+            {% endif %}
+            </a>
+
+          <div class="media-body">
+            <h3 class="text-center font-weight-bold">
+              <a href="{{ url }}{{ all }}">
+                {{ item.title }}
+              </a>
+            </h3> 
+
+            <div>{{ item.content }}</div>
+            <p class="text-right font-weight-bold mr-3">{{ item.price }} руб.</p>
+            <p class="text-right font-italic mr-3">{{ item.created_at }}</p>
+
+            <p class="text-right mt-2 mr-3">
+              <a class="btn btn-primary" href="{% url 'main:profile_anno_change' pk=item.pk %}">
+                <i class="fas fa-edit"></i>
+                Редактировать
+              </a>
+
+              <a class="btn btn-outline-danger" href="{% url 'main:profile_anno_delete' pk=item.pk %}">
+                <i class="fas fa-trash-alt"></i>
+                Удалиrь
+              </a>
+            </p> 
+          </div>
+        </li>
+      {% endfor %}
+
+    </ul>
+  {% endif %}
+  <p>
+    <a class="btn btn-success" href="{% url 'main:profile_anno_add' %}">
+      <i class="fas fa-plus"></i>
+      Добавить объявление
+    </a>
+  </p> 
 {% endblock content %}

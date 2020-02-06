@@ -1,0 +1,49 @@
+{% extends "layout/basic.html" %}
+
+{% load thumbnail %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}{{ rubric.name }}{% endblock title %}
+
+{% block searchform %}
+{% endblock %}
+
+{% block content %}
+  <h2 class="text-center mt-3 mb-2">{{rubric.name}}</h2>
+
+  <div class="container-fluid mb-2">
+    <div class="row">
+      <div class="col">&nbsp;</div>
+      <form class="col-md-auto form-inline">
+        {% bootstrap_form form show_label=False %}
+        {% bootstrap_button content='<i class="fas fa-search mr-2"></i>Искать' button_type='submit' %}
+      </form>
+    </div>
+  </div>
+
+  {% if anno %}
+    <ul class="list-unstyled">
+      {% for item in anno %}
+        <li class="media my-5 р-3 border">
+          {% url 'main:detail' rubric_pk=rubric.pk pk=item.pk as url %}
+            <a href="{{url}}{{all}}">
+            {% if item.image %}
+              <img class="mr-3" src="{% thumbnail item.image 'default' %}">
+            {% else %}
+              <img class="mr-3" src="{% static 'main/empty.jpg' %}">
+            {% endif %}
+            </a>
+            
+          <div class="media-body">
+            <h3><a href="{{ url }}{{ all }}">{{ item.title }}</a></h3>             
+            <div>{{ item.content }}</div>
+            <p class="text-right font-weight-bold">{{ item.price }} руб.</p>
+            <p class="text-right font-italic">{{ item.created_at }}</p>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+    {% bootstrap_pagination page url=keyword %}
+  {% endif %} 
+{% endblock content %}

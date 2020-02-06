@@ -1,18 +1,21 @@
 {% extends 'layout/basic.html' %}
+
 {% load bootstrap4 %}
 
 {% block title %}Вход{% endblock title %}
 
 {% block content %}
-  <h2>Вход</h2>
+  <h2 class="text-center m-3">Вход</h2>
+
   {% if user.is_authenticated %}
     Вы уже вошли
+
   {% else %}
-    <form method="post">
+    <form method="post" class="form mr-5 pb-3">
       {% csrf_token %}
       {% bootstrap_form form layout='horizontal' %} 
       <input type="hidden" name="next" value="{{next}}">
-      {% buttons submit='Boйти' %}{% endbuttons %}
+      {% buttons submit='<i class="fas fa-sign-in-alt mr-2"></i>Boйти' %}{% endbuttons %}
     </form>
   {% endif %}
 {% endblock content %}

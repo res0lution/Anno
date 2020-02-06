@@ -1,5 +1,35 @@
 {% extends "layout/basic.html" %}
 
+{% load thumbnail %}
+{% load static %}
+
 {% block content %}
-  <h2>Последние 10 объявлений</h2>
+  <h2 class="mt-5">Последние 10 объявлений</h2>
+    {% for item in anno %}
+      <ul class="list-unstyled mb-5">
+        <li class="media my-2 р-3 border rounded mb-4">
+
+          {% url 'main:detail' rubric_pk=item.rubric.pk pk=item.pk as url %}
+            <a class="align-self-center" href="{{url}}{{all}}">
+            {% if item.image %}
+              <img class="mr-3 ml-3 rounded" src="{% thumbnail item.image 'default' %}">
+            {% else %}
+              <img class="mr-3 ml-3 rounded" src="{% static 'main/empty.jpg' %}">
+            {% endif %}
+            </a>
+
+            <div class="media-body">
+              <h3 class="text-center font-weight-bold">
+                <a href="{{ url }}{{ all }}">
+                  {{ item.title }}
+                </a>
+              </h3> 
+
+              <div>{{ item.content }}</div>
+              <p class="text-right font-weight-bold mr-3">{{ item.price }} руб.</p>
+              <p class="text-right font-italic mr-3">{{ item.created_at }}</p>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
 {% endblock content %} 

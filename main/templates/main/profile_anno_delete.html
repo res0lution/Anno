@@ -1,0 +1,14 @@
+{% extends 'layout/basic.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}Добавление объявления - Профиль пользователя{% endblock title %}
+
+{% block content %}
+  <h2 class="text-center mt-5 mb-3">Удаление объявления</h2>
+  <p>Вы уверены что хотите удалить это обьявление?<p>
+  <form method="post">
+    {% csrf_token %}
+    {% buttons submit='<i class="fas fa-trash-alt mr-2"></i>Удалить' %}{% endbuttons %}
+  </form>
+{% endblock content %}

@@ -5,10 +5,10 @@
 {% block title %}Удаление пользователя{% endblock title %}
 
 {% block content %}
-  <h2> Удаление пользователя {{ object.username }}</h2>
+  <h2 class="text-center mt-3 mb-3">Удаление пользователя {{ object.username }}</h2>
   <form method="post">
     {% csrf_token %}
-    {% buttons submit='Удалить' %}{% endbuttons %}
+    {% buttons submit='<i class="fas fa-trash-alt mr-2"></i>Удалить' %}{% endbuttons %}
   </form>
 {% endblock content %}
 

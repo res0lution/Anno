@@ -1,8 +1,5 @@
-header h1 {
-    background: url("scroll.png") left / auto 100% no-repeat,
-    url("scroll.png") right / auto 100% no-repeat;
-}
-
-.root {
-    font-size: larger; 
+body {
+    background: url("background-site.jpg") no-repeat center center;
+    background-size: cover;
+    min-height: 800px;
 }
